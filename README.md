@@ -16,7 +16,7 @@ To set up the Actor Simulator, follow these steps:
 
 ## Clone the repository:
 ```
-git clone https://github.com/yourusername/actor-simulator.git
+git clone https://github.com/Githumaru/actor-simulator.git
 cd actor-simulator
 ```
 
@@ -47,11 +47,11 @@ set: The command to set the state.
 ```
 
 ```
-<State>: The desired state, either "on" or "off."
+<State>: The desired state, either "On" or "Off."
 ```
 
 Example:
-Valve set on
+Valve set On
 
 Querying Actor State
 
