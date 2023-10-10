@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 
 
-
+# Define an actor class to represent devices
 class actor:
     def __init__(self, name):
         self.state = 'Off'
@@ -13,13 +13,13 @@ class actor:
     def getstate(self):
         client.publish(f"{self.name}", self.state)
 
-# Обработчик подключения к брокеру MQTT
+# Callback for handling MQTT connection
 def on_connect(client, userdata, flags, rc):
     # Подписываемся на тему "request"
     client.subscribe("request")
 
 
-# Обработчик приема сообщения от брокера MQTT
+# Callback for handling received MQTT messages
 def on_message(client, userdata, message):
     name, func, state, *_ = message.payload.decode().split() + ['']
     if func == 'get':
@@ -31,28 +31,30 @@ def on_message(client, userdata, message):
 
 
 
-# Создание клиента MQTT для сервера
+# Create an MQTT client for the server
 client = mqtt.Client()
 
+# Create instances of devices (actors)
 Valve = actor('Valve')
 Switch = actor('Switch')
 
+# Store devices in a dictionary
 devices = {
     Valve.name: Valve,
     Switch.name: Switch,
 }
 
-# Установка обработчиков
+# Set up MQTT client callbacks
 client.on_connect = on_connect
 client.on_message = on_message
 
-broker_address = "mosquitto"  # IP-адрес брокера MQTT
-port = 1883  # Порт MQTT сервера
+broker_address = "mosquitto"  # IP address of the MQTT broker
+port = 1883  # Port of the MQTT server
 
-# Подключение к брокеру MQTT на localhost, порт 1883
+# Connect to the MQTT broker
 client.connect(broker_address, port, 60)
 
-# Основной цикл для обработки сообщений
+# Main loop for handling messages
 try:
     client.loop_forever()
 except KeyboardInterrupt:

@@ -1,11 +1,11 @@
 import paho.mqtt.publish as publish
 
-# Настройки MQTT сервера
-broker_address = "mosquitto"  # IP-адрес брокера MQTT
-port = 1883  # Порт MQTT сервера
-topic = "request"  # Тема для отправки сообщения
+# MQTT server settings
+broker_address = "mosquitto"
+port = 1883
+topic = "request"
 
-# Отправка сообщения на сервер MQTT
+# Sending a message to the MQTT server
 try:
     while True:
         message = input()
