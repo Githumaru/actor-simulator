@@ -1,0 +1,33 @@
+version: '3'
+services:
+  server:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 8765:8765
+    volumes:
+      - ./server:/app
+
+
+  client:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/app
+
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - /c/Users/79151/PycharmProjects/actor_simulator/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
